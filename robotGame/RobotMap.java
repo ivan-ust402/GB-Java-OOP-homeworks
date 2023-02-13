@@ -131,21 +131,31 @@ public class RobotMap {
          * Метод движения робота
          */
         public void move() {
-            final Point newPoint;
-            switch(direction) {
-                case TOP: newPoint = new Point(point.x() - 1, point.y());
-                          break;
-                case RIGHT: newPoint = new Point(point.x(), point.y() + 1);
-                          break;
-                case BOTTOM: newPoint = new Point(point.x() + 1, point.y());
-                          break;
-                case LEFT: newPoint = new Point(point.x(), point.y() - 1);
-                          break;
-                default: newPoint = new Point(point.x(), point.y());
+            move(1);
+        }
+
+        /*
+         * Перегрузка метода движения робота
+         */
+        public void move(int step) {
+            System.out.println("Количество шагов: " + step );
+            for (int i = 0; i < step; i++) {
+                final Point newPoint;
+                switch(direction) {
+                    case TOP: newPoint = new Point(point.x() - 1, point.y());
+                              break;
+                    case RIGHT: newPoint = new Point(point.x(), point.y() + 1);
+                              break;
+                    case BOTTOM: newPoint = new Point(point.x() + 1, point.y());
+                              break;
+                    case LEFT: newPoint = new Point(point.x(), point.y() - 1);
+                              break;
+                    default: newPoint = new Point(point.x(), point.y());
+                }
+                validatePoint(newPoint);
+                System.out.println("Робот переместился с " + point + " на " + newPoint);
+                this.point = newPoint;
             }
-            validatePoint(newPoint);
-            System.out.println("Робот переместился с " + point + " на " + newPoint);
-            this.point = newPoint;
         }
 
         /*
