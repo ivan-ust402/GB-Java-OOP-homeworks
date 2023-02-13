@@ -26,6 +26,8 @@ public class EntryPoint {
         RobotMap map = new RobotMap(5, 5);
         RobotMap.Robot robot = map.createRobot(new Point(2, 3));
         System.out.println(robot);
+        RobotMap.Robot robot1 = map.createRobot(new Point(2, 3));
+        System.out.println(robot1);
         robot.move();
         robot.move();
         robot.changeDirection(Direction.RIGHT);
