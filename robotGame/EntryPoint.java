@@ -23,6 +23,6 @@ package robotGame;
 */
 public class EntryPoint {
     public static void main(String[] args) {
-        RobotMap map = new RobotMap(5, 5);
+        // RobotMap map = new RobotMap(5, 5);
     }
 }

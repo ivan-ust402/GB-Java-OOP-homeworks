@@ -8,4 +8,7 @@ public class RobotMap {
         this.n = n;
         this.m = m;
     }
+
+    public class Robot {
+    }
 }
