@@ -35,9 +35,14 @@ package robotGame;
 
 public class EntryPoint {
     public static void main(String[] args) {
-        RobotMap map = new RobotMap(5, 5);
+        RobotMap map = new RobotMap(5, 5, 2);
         RobotMap.Robot robot = map.createRobot(new Point(2, 3));
         System.out.println(robot);
+        RobotMap.Robot robot1 = map.createRobot(new Point(1, 3));
+        System.out.println(robot1);
+        RobotMap.Robot robot2 = map.createRobot(new Point(0, 3));
+        System.out.println(robot2);
+        
         // RobotMap.Robot robot1 = map.createRobot(new Point(2, 3));
         // System.out.println(robot1);
         robot.move();

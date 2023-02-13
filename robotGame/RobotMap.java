@@ -6,17 +6,27 @@ import java.util.List;
 public class RobotMap {
     private final int n;
     private final int m;
+    private final int robotCount;
 
     private final List<Robot> robots;
 
     /*
      * Конструктор класса RobotMap
      */
-    public RobotMap(int n, int m) {
+    public RobotMap(int n, int m, int robotCount) {
         validateRobotMapBoundaries(n, m);
         this.n = n;
         this.m = m;
+        validateInputRobotCount(n, m, robotCount);
+        this.robotCount = robotCount;
         this.robots = new ArrayList<>();
+    }
+
+    /*
+     * Перегрузка конструктора
+     */
+    public RobotMap(int n, int m) {
+        this(n, m, 5);
     }
 
     /*
@@ -29,13 +39,41 @@ public class RobotMap {
     }
 
     /*
+     * Валидация значения количества роботов на карте
+     */
+    private void validateInputRobotCount(int n, int m, int count) {
+        if (count <= 0) {
+            throw new IllegalStateException("Количество роботов не может быть отрицательным или равно нулю");
+        }
+        if (count > m * n) {
+            throw new IllegalStateException("Число роботов не может превышать количества ячеек карты:\n " + "максимальное количество роботов: " +
+            (n * m) + ", ваше число роботов: " + count);
+        }
+    }
+
+    /*
      * Создание экземпляра робота
      */
     public Robot createRobot(Point point) {
         validatePoint(point);
+        validateCreateRobotCount(robots, robotCount);
         Robot robot = new Robot(point);
         robots.add(robot);
         return robot;
+    }
+
+    /*
+     * Валидация количества роботов при создании экземпляров
+     */
+    private void validateCreateRobotCount(List<Robot> robots, int count) {
+        if (robots.size() >= count) {
+            throw new IllegalStateException(
+                "Нельзя добавить еще одного робота!\n" + 
+                "Данный робот будет " + 
+                (robots.size() + 1) + " из допустимых " +
+                robotCount
+                );
+        }
     }
 
     /*
