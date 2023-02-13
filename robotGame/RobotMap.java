@@ -13,9 +13,19 @@ public class RobotMap {
      * Конструктор класса RobotMap
      */
     public RobotMap(int n, int m) {
+        validateRobotMapBoundaries(n, m);
         this.n = n;
         this.m = m;
         this.robots = new ArrayList<>();
+    }
+
+    /*
+     * Валидация размерности карты
+     */
+    private void validateRobotMapBoundaries(int n, int m) {
+        if (n <= 0 || m <=0) {
+            throw new IllegalStateException("Некорректная размерность карты!");
+        }
     }
 
     /*
