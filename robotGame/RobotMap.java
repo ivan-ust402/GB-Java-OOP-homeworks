@@ -9,6 +9,25 @@ public class RobotMap {
         this.m = m;
     }
 
+    public Robot createRobot(Point point) {
+        Robot robot = new Robot(point);
+        return robot;
+    }
+
     public class Robot {
+        private Point point;
+
+        public Robot(Point point) {
+            this.point = point;
+        }
+
+        public void changeDirection() {
+            
+        }
+
+        public void move() {
+            final Point newPoint;
+
+        }
     }
 }

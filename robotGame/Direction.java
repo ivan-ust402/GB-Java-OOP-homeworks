@@ -1,5 +1,5 @@
 package robotGame;
 
-public class Direction {
-    
+public enum Direction {
+    TOP, RIGHT, BOTTOM, LEFT
 }
