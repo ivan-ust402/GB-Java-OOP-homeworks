@@ -1,5 +1,5 @@
 package homework2.competitionGame.interfaces;
 
-public class CanJump {
-    
+public interface CanJump {
+    int getJump();
 }
