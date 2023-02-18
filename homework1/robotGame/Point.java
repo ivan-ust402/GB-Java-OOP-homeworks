@@ -1,4 +1,4 @@
-package robotGame;
+package homework1.robotGame;
 
 import java.util.Objects;
 

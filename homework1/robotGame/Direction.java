@@ -1,4 +1,4 @@
-package robotGame;
+package homework1.robotGame;
 
 /*
  * Перечисление направления движений робота
