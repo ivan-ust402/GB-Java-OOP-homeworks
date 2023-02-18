@@ -3,9 +3,13 @@ package homework2.competitionGame;
 import homework2.competitionGame.adapters.RoadObstacleAdapter;
 import homework2.competitionGame.adapters.WallObstacleAdapter;
 import homework2.competitionGame.interfaces.Obstacle;
+import homework2.competitionGame.interfaces.Participant;
 import homework2.competitionGame.obstacles.Road;
 import homework2.competitionGame.obstacles.SwimmingPool;
 import homework2.competitionGame.obstacles.Wall;
+import homework2.competitionGame.particiant.Cat;
+import homework2.competitionGame.particiant.Cheater;
+import homework2.competitionGame.particiant.StandartParticipant;
 
 public class CompetitionGameMain {
     public static void main(String[] args) {
@@ -43,6 +47,14 @@ public class CompetitionGameMain {
             new RoadObstacleAdapter(new Road(45)),
             new SwimmingPool(20),
             new WallObstacleAdapter(new Wall(40)),
+        };
+    }
+
+    private static Participant[] createParticipants() {
+        return new Participant[] {
+            new StandartParticipant("Igor", 50, 30, 20),
+            new Cat("Murzik", 60, 25),
+            new Cheater("Cheater")
         };
     }
 }
