@@ -38,7 +38,18 @@ public class CompetitionGameMain {
         // зависимость Wall от Participant
         // Wall зависит при использовании адаптера только от интерфейса 
         // CanJump
-
+        Obstacle[] obstacles = createObstacles();
+        Participant[] participants = createParticipants();
+        for (Participant participant: participants) {
+            for (Obstacle obstacle : obstacles) {
+                boolean result = obstacle.pass(participant);
+                if (result) {
+                    System.out.println("Участник #" + participant.getName() + " преодолел препятствие");
+                } else {
+                    System.out.println("Участник #" + participant.getName() + " НЕ преодолел препятствие");
+                }
+            }
+        }
         
     }
     private static Obstacle[] createObstacles() {
