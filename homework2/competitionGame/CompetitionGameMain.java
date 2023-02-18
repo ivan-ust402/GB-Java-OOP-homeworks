@@ -1,5 +1,12 @@
 package homework2.competitionGame;
 
+import homework2.competitionGame.adapters.RoadObstacleAdapter;
+import homework2.competitionGame.adapters.WallObstacleAdapter;
+import homework2.competitionGame.interfaces.Obstacle;
+import homework2.competitionGame.obstacles.Road;
+import homework2.competitionGame.obstacles.SwimmingPool;
+import homework2.competitionGame.obstacles.Wall;
+
 public class CompetitionGameMain {
     public static void main(String[] args) {
     // Реализуем соревнования
@@ -29,5 +36,13 @@ public class CompetitionGameMain {
         // CanJump
 
         
+    }
+    private static Obstacle[] createObstacles() {
+        return new Obstacle[] {
+            new RoadObstacleAdapter(new Road(100)),
+            new RoadObstacleAdapter(new Road(45)),
+            new SwimmingPool(20),
+            new WallObstacleAdapter(new Wall(40)),
+        };
     }
 }
