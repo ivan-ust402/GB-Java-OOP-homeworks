@@ -1,5 +1,5 @@
 package homework2.competitionGame.interfaces;
 
-public class Participant {
-    
+public interface Participant extends CanJump, CanRun, CanSwim{
+    String getName();
 }
