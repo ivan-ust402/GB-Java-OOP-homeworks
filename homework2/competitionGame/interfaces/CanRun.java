@@ -1,5 +1,5 @@
 package homework2.competitionGame.interfaces;
 
-public class CanRun {
-    
+public interface CanRun {
+    int getRun();
 }
