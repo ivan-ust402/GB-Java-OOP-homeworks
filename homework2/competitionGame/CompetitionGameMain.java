@@ -1,10 +1,12 @@
 package homework2.competitionGame;
 
+import homework2.competitionGame.adapters.MountainObstacleAdapter;
 import homework2.competitionGame.adapters.RoadObstacleAdapter;
 import homework2.competitionGame.adapters.SwimPoolObstacleAdapter;
 import homework2.competitionGame.adapters.WallObstacleAdapter;
 import homework2.competitionGame.interfaces.Obstacle;
 import homework2.competitionGame.interfaces.Participant;
+import homework2.competitionGame.obstacles.Mountain;
 import homework2.competitionGame.obstacles.Road;
 import homework2.competitionGame.obstacles.SwimmingPool;
 import homework2.competitionGame.obstacles.Wall;
@@ -67,13 +69,14 @@ public class CompetitionGameMain {
             new RoadObstacleAdapter(new Road(45)),
             new SwimPoolObstacleAdapter(new SwimmingPool(20)),
             new WallObstacleAdapter(new Wall(40)),
+            new MountainObstacleAdapter(new Mountain(1000)),
         };
     }
 
     private static Participant[] createParticipants() {
         return new Participant[] {
-            new StandartParticipant("Igor", 50, 30, 20),
-            new Cat("Murzik", 60, 25),
+            new StandartParticipant("Igor", 50, 30, 20, 1000),
+            new Cat("Murzik", 60, 25, 500),
             new Cheater("Cheater")
         };
     }
