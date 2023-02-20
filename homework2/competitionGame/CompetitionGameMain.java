@@ -1,6 +1,7 @@
 package homework2.competitionGame;
 
 import homework2.competitionGame.adapters.RoadObstacleAdapter;
+import homework2.competitionGame.adapters.SwimPoolObstacleAdapter;
 import homework2.competitionGame.adapters.WallObstacleAdapter;
 import homework2.competitionGame.interfaces.Obstacle;
 import homework2.competitionGame.interfaces.Participant;
@@ -64,7 +65,7 @@ public class CompetitionGameMain {
         return new Obstacle[] {
             new RoadObstacleAdapter(new Road(100)),
             new RoadObstacleAdapter(new Road(45)),
-            new SwimmingPool(20),
+            new SwimPoolObstacleAdapter(new SwimmingPool(20)),
             new WallObstacleAdapter(new Wall(40)),
         };
     }
