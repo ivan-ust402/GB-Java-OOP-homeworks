@@ -38,6 +38,14 @@ public class CompetitionGameMain {
         // зависимость Wall от Participant
         // Wall зависит при использовании адаптера только от интерфейса 
         // CanJump
+
+        // Homework!!!
+        // 0. Ознакомиться с кодом урока 2, подготовить вопросы к 
+        // следующему уроку!
+        // 1. Дописать адаптеры для бассейна
+        // 2. *Придумать собственный тип препятствий и прикрутить 
+        // его в проект по аналогии/
+
         Obstacle[] obstacles = createObstacles();
         Participant[] participants = createParticipants();
         for (Participant participant: participants) {
