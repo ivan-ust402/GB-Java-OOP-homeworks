@@ -27,8 +27,12 @@ public class ProgMain {
         laptops.add(new Notebook(9, "MSI WW1", 27999, 4));
 
         Comparator<Notebook> priceComparator = (o1, o2) -> (int)(o1.getPrice() - o2.getPrice());
+        Comparator<Notebook> ramComparator = (o1, o2) -> o1.getRam() - o2.getRam();
 
         Collections.sort(laptops, priceComparator);
+        System.out.println(laptops);
+
+        Collections.sort(laptops, ramComparator);
         System.out.println(laptops);
     }
 
