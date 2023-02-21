@@ -38,12 +38,12 @@ public class ProgMain {
         Collections.sort(laptops, ramComparator);
         System.out.println("Фильтр по объему RAM: ");
         System.out.println(laptops);
-        
+
         Collections.sort(laptops, priceComparator);
         System.out.println("Фильтр по цене: ");
         System.out.println(laptops);
 
-        Collections.sort(laptops, ramPriceComparator);
+        laptops.sort(ramPriceComparator);
         System.out.println("Фильтр по объему RAM, если RAM одинаковые дополнительная сортировка по цене: ");
         System.out.println(laptops);
     }
