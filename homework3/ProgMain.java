@@ -15,9 +15,9 @@ import java.util.List;
 public class ProgMain {
     public static void main(String[] args) {
         List<Notebook> laptops = new ArrayList<Notebook>();
-        laptops.add(new Notebook(0, "Asus A55",15999, 2));
+        laptops.add(new Notebook(0, "Asus A55",20999, 2));
         laptops.add(new Notebook(1, "Acer X3", 17999, 4));
-        laptops.add(new Notebook(2, "Lenovo Z1", 22999, 4));
+        laptops.add(new Notebook(2, "Lenovo Z1", 23999, 4));
         laptops.add(new Notebook(3, "Dexp R1", 22999, 2));
         laptops.add(new Notebook(4, "HP X17", 27999, 8));
         laptops.add(new Notebook(5, "MacBook Air", 149999, 16));
@@ -28,11 +28,23 @@ public class ProgMain {
 
         Comparator<Notebook> priceComparator = (o1, o2) -> (int)(o1.getPrice() - o2.getPrice());
         Comparator<Notebook> ramComparator = (o1, o2) -> o1.getRam() - o2.getRam();
-
-        Collections.sort(laptops, priceComparator);
-        System.out.println(laptops);
+        Comparator<Notebook> ramPriceComparator = (o1, o2) -> {
+            if (o1.getRam() - o2.getRam() == 0) {
+                return (int)(o1.getPrice() - o2.getPrice());
+            }
+            return o1.getRam() - o2.getRam();
+        };
 
         Collections.sort(laptops, ramComparator);
+        System.out.println("Фильтр по объему RAM: ");
+        System.out.println(laptops);
+        
+        Collections.sort(laptops, priceComparator);
+        System.out.println("Фильтр по цене: ");
+        System.out.println(laptops);
+
+        Collections.sort(laptops, ramPriceComparator);
+        System.out.println("Фильтр по объему RAM, если RAM одинаковые дополнительная сортировка по цене: ");
         System.out.println(laptops);
     }
 
