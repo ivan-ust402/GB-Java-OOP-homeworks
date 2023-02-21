@@ -1,5 +1,5 @@
 package homework2.roundHoleMachine.interfaces;
 
-public class RoundHole {
-    
+public interface RoundHole {
+    double getRadius();
 }

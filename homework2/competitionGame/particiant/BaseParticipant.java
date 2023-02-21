@@ -7,12 +7,14 @@ public abstract class BaseParticipant implements Participant {
     private final int jump;
     private final int run;
     private final int swim;
+    private final int climb;
 
-    public BaseParticipant (String name, int jump, int run, int swim) {
+    public BaseParticipant (String name, int jump, int run, int swim, int climb) {
         this.name = name;
         this.jump = jump;
         this.run = run;
         this.swim = swim;
+        this.climb = climb;
     }
 
     @Override
@@ -34,4 +36,10 @@ public abstract class BaseParticipant implements Participant {
     public int getSwim() {
         return swim;
     }
+
+    @Override
+    public int getClimb() {
+        return climb;
+    }
+
 }
