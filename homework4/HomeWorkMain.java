@@ -25,8 +25,8 @@ public class HomeWorkMain {
 
         // appleBox.moveTo(goldenAppleBox); // Не должно работать!
         goldenAppleBox.moveTo(appleBox);
-        System.out.println(appleBox.getWeight()); // 0.0
-        System.out.println(goldenAppleBox.getWeight()); // 8.0
+        System.out.println(appleBox.getWeight()); // 8.0
+        System.out.println(goldenAppleBox.getWeight()); // 0.0
 
     }
 
