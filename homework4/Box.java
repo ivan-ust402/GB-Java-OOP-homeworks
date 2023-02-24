@@ -1,22 +1,31 @@
 package homework4;
 
-public class Box /*<T>*/ /* FIXME Исправлять тут! */ {
+import java.util.ArrayList;
+import java.util.List;
 
-    // Нужно реализовать хранение фрукто в коробке Box
+public class Box <T extends Fruit> {
 
-    public void add(Object fruit) {
-        // FIXME: 21.02.2023 Написать логику сохранения
-        throw new UnsupportedOperationException();
+    // Нужно реализовать хранение фруктов в коробке Box
+    List<T> fruitBox = new ArrayList<T> ();
+    private int sumWeigth;
+
+    public void add(T fruit) {
+        fruitBox.add(fruit);
     }
 
     public double getWeight() {
-        // FIXME: 21.02.2023
-        throw new UnsupportedOperationException();
+        sumWeigth = 0;
+        fruitBox.forEach(fruit -> {
+            sumWeigth += fruit.getWeight();
+        });
+        return sumWeigth;
     }
 
-    public void moveTo(Box anotherBox) {
-        // FIXME: 21.02.2023
-        throw new UnsupportedOperationException();
+    public void moveTo(Box<? super T> anotherBox) {
+        while(fruitBox.size() > 0) {
+            anotherBox.add(fruitBox.get(0));
+            fruitBox.remove(0);
+        }
     }
 
 }
