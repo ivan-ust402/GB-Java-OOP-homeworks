@@ -1,58 +1,70 @@
 package homework5;
 
-/**
- * main - entry point
- */
+import java.util.Scanner;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-// Карта с роботами.
-// Карта имеет размер nxm, где n и m - положительные целые числа
-// Должна быть возможность создания робота на какой-то точке на
-// карте
-// Координата робота - точка на карте описывается двумя 
-// целочисленными координатами.
-// Роботы могут перемещаться по карте вперед
-// В одной точке не может находится несколько роботов.
-
-
-/*
-* * * * *
-* * r * *
-* * * * *
-* * * * * 
-* * * * * 
-*/
-
-// Homework
-        // 0. Разобраться с проектом. Подготовить вопросы к следующему 
-        // семинару, если возникнут
-        // 1. Добавить валидацию при создании карты
-        // 2. Реализовать возможность задать ограничение по количеству 
-        // создаваемых на карте роботов (в конструкторе карты).
-        // При этом если параметр не указан, то поставить по умолчанию 5
-        // 3*. Реализовать возможность вызова метода move с параметром - 
-        // количество шагов вперед
-        // Подсказка можно несколько раз вызвать метод move
-
+// Реализовать MVP паттерн
+// Меню пользователя:
+// Список доступных действий:
+//                 1. Для создания робота введите create x, y, где x, y - 
+//                 координаты местоположения нового робота.
+//                 2. Для вывода списка всех созданных роботов, введите list 
+//                 3. Для перемещения робота введите move id x, y, где id -
+//                 идентификатор робота
+//                 4. hw: для изменения направления введите changedir id 
+//                 DIRECTION, где id - идентификатор робота, DIRECTION -
+//                 одно из значений (TOP, RIGHT, BOTTOM, LEFT) 
+//                 5. Для удаления робота введите delete id, где id - 
+//                 идентификатор робота 
+//                 6. Для выхода напишите exit
+//                 ...список будет пополняться
 public class EntryPoint {
     public static void main(String[] args) {
-        RobotMap map = new RobotMap(5, 5, 4);
-        RobotMap.Robot robot = map.createRobot(new Point(2, 3));
-        System.out.println(robot);
-        // RobotMap.Robot robot1 = map.createRobot(new Point(1, 3));
-        // System.out.println(robot1);
-        // RobotMap.Robot robot2 = map.createRobot(new Point(0, 3));
-        // System.out.println(robot2);
-        // RobotMap.Robot robot3 = map.createRobot(new Point(0, 2));
-        // System.out.println(robot2);
-        // RobotMap.Robot robot4 = map.createRobot(new Point(0, 1));
-        // System.out.println(robot2);
-        // RobotMap.Robot robot5 = map.createRobot(new Point(0, 0));
-        // System.out.println(robot2);
-        
-        // RobotMap.Robot robot1 = map.createRobot(new Point(2, 3));
-        // System.out.println(robot1);
-        robot.move(2);
-        robot.changeDirection(Direction.RIGHT);
-        robot.move();
+        // VIEW
+        Scanner sc = new Scanner(System.in, "Cp866");
+        System.out.println("Приветствуем в игре RobotGame!");
+        System.out.println("Введите размеры карты: ");
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        // Читаем строку до конца
+        sc.nextLine();
+        RobotMap map = new RobotMap(n, m);
+        System.out.println("Карта успешно создана!");
+        final CommandManager manager = new CommandManager(map);
+
+        while (true) {
+            System.out.println("""
+                Список доступных действий:
+                    1. Для создания робота введите create x, y, где x, y - 
+                    координаты местоположения нового робота.
+                    2. Для вывода списка всех созданных роботов, введите list 
+                    3. Для перемещения робота введите move id x, y, где id -
+                    идентификатор робота
+                    4*. hw: Для изменения направления введите changedir id 
+                    DIRECTION, где id - идентификатор робота, DIRECTION -
+                    одно из значений (TOP, RIGHT, BOTTOM, LEFT) 
+                    5*. hw: Для удаления робота введите delete id, где id - 
+                    идентификатор робота 
+                    6. Для выхода напишите exit
+                    ...список будет пополняться
+                    """); 
+            String command = sc.nextLine();
+            // Инкапсулируем обработку команд
+            manager.acceptCommand(command);
+        }       
+    }
+    // CONTROLLER
+    private static class CommandManager {
+        RobotMap map;
+
+        CommandManager(RobotMap map) {
+            this.map = map;
+        }
+
+        public void acceptCommand(String command) {
+
+        }
+
+
     }
 }
