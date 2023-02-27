@@ -1,7 +1,11 @@
 package homework5;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.function.Consumer;
 
 // Реализовать MVP паттерн
 // Меню пользователя:
@@ -56,15 +60,98 @@ public class EntryPoint {
     // CONTROLLER
     private static class CommandManager {
         RobotMap map;
+        private final List<CommandHandler> handlers;
 
         CommandManager(RobotMap map) {
             this.map = map;
+            handlers = new ArrayList<>();
+            initHandlers();
         }
+
+        private interface CommandHandler{
+            String name();
+            void runCommand(String[] args);
+        }
+
+        private void initHandlers() {
+            initCreateCommandHandler();
+            initListCommandHandler();
+            initMoveCommandHandler();
+            initExitCommandHandler();
+        }
+
+        private void initCreateCommandHandler() {
+            handlers.add(createHandler("create", args -> {
+                int x = Integer.parseInt(args[0]);
+                int y = Integer.parseInt(args[1]);
+                RobotMap.Robot robot = map.createRobot(new Point(x,y));
+                System.out.println("Робот " + robot + " успешно создан!");
+            }));
+        }
+
+        private void initListCommandHandler() {
+            handlers.add(createHandler("list", args -> {
+                // map.acceptRobots(System.out::println);
+            }));
+        }
+
+        private void initMoveCommandHandler() {
+            handlers.add(createHandler("move", args -> {
+                Long robotId = Long.parseLong(args[0]);
+                // Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                // robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
+                //     System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                // });
+            }));
+        }
+
+        private void initExitCommandHandler() {
+            handlers.add(createHandler("exit", args -> {
+                System.exit(0);
+            }));
+        }
+
+        private CommandHandler createHandler(String name, Consumer<String[]> delegate) {
+            return new CommandHandler() {
+
+                @Override
+                public String name() {
+                    return name;
+                }
+
+                @Override
+                public void runCommand(String[] args) {
+                    delegate.accept(args);
+                }
+                
+            };
+            
+        }
+
+
 
         public void acceptCommand(String command) {
+            String[] split = command.split(" ");
+            String commandName = split[0];
+            String[] commandArgs = Arrays.copyOfRange(split, 1, split.length);
+            boolean found = false;
 
+            for (CommandHandler handler : handlers) {
+                if(commandName.equals(handler.name())) {
+                    found = true;
+
+                    try {
+                        handler.runCommand(commandArgs);
+                    } catch (Exception e) {
+                        System.err.println("Во время обработки команды \"" + commandName + "\" произошла ошибка: " + e.getMessage());
+                    }
+                    
+                }
+            }
+
+            if(!found) {
+                System.out.println("Команда не найдена!");
+            }
         }
-
-
     }
 }
