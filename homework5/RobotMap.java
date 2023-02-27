@@ -2,6 +2,8 @@ package homework5;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class RobotMap {
     private final int n;
@@ -104,6 +106,21 @@ public class RobotMap {
         }
     }
 
+    public Optional<Robot> getByID(Long id) {
+        for (Robot robot : robots) {
+            if (id.equals(robot.id)) {
+                return Optional.of(robot);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public void acceptRobots(Consumer<Robot> robotAcceptor) {
+        for (Robot robot : robots) {
+            robotAcceptor.accept(robot);
+        }
+    }
+
     /*
      * Вложенный класс Robot
      */
@@ -111,11 +128,14 @@ public class RobotMap {
         public static final Direction DEFAUL_DIRECTION = Direction.TOP;
         private Direction direction;
         private Point point;
+        private static Long idCounter = 1L;
+        private final Long id;
 
         /*
          * Конструктор класса Robot
          */
         public Robot(Point point) {
+            this.id = idCounter++;
             this.direction = DEFAUL_DIRECTION;
             this.point = point;
         }
@@ -163,7 +183,7 @@ public class RobotMap {
          */
         @Override
         public String toString() {
-            return point.toString() + ", ["+ direction.name() + "]";
+            return "[" + id + "] " + point.toString() + " ["+ direction.name() + "]";
         }
     }
 }

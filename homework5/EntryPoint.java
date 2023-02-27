@@ -91,17 +91,17 @@ public class EntryPoint {
 
         private void initListCommandHandler() {
             handlers.add(createHandler("list", args -> {
-                // map.acceptRobots(System.out::println);
+                map.acceptRobots(System.out::println);
             }));
         }
 
         private void initMoveCommandHandler() {
             handlers.add(createHandler("move", args -> {
                 Long robotId = Long.parseLong(args[0]);
-                // Optional<RobotMap.Robot> robot = map.getByID(robotId);
-                // robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
-                //     System.out.println("Робот с идентификатором " + robotId + " не найден!");
-                // });
+                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
+                    System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                });
             }));
         }
 
