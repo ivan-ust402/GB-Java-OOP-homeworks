@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+import homework5.RobotMap.Robot;
+
 // Реализовать MVP паттерн
 // Меню пользователя:
 // Список доступных действий:
@@ -77,6 +79,7 @@ public class EntryPoint {
             initCreateCommandHandler();
             initListCommandHandler();
             initMoveCommandHandler();
+            initChangeDirCommandHandler();
             initExitCommandHandler();
         }
 
@@ -102,6 +105,51 @@ public class EntryPoint {
                 robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
                     System.out.println("Робот с идентификатором " + robotId + " не найден!");
                 });
+            }));
+        }
+
+        // private void initChangeDirCommandHandler() {
+        //     handlers.add(createHandler("changedir", args -> {
+        //         Long robotId = Long.parseLong(args[0]);
+        //         String dirInput = args[1];
+        //         Optional<Direction> dirOptional = Direction.ofString(dirInput);
+        //         dirOptional.ifPresentOrElse(new Consumer<Direction>() {
+
+        //             @Override
+        //             public void accept(Direction direction) {
+        //                 Optional<RobotMap.Robot> robot = map.getByID(robotId);
+        //                 robot.ifPresentOrElse(new Consumer<RobotMap.Robot>() {
+
+        //                     @Override
+        //                     public void accept(RobotMap.Robot robot) {
+        //                         robot.changeDirection(direction);
+        //                     }
+                    
+        //                 }, () -> {
+        //                     System.out.println("Робот с идентификатором " + robotId + " не найден!");
+        //                 });
+        //             }  
+        //         }
+        //         , () -> {
+        //             System.out.println("Направление движение " + dirInput + " не найдено!");
+        //         });                
+        //     }));
+
+        private void initChangeDirCommandHandler() {
+            handlers.add(createHandler("changedir", args -> {
+                Long robotId = Long.parseLong(args[0]);
+                String dirInput = args[1];
+                Optional<Direction> dirOptional = Direction.ofString(dirInput);
+                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                if(dirOptional.isEmpty()) {
+                    System.out.println("Направления движения " + dirInput + " не существует!");
+                }
+                if(robot.isEmpty()) {
+                    System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                } 
+                if(dirOptional.isPresent() && robot.isPresent()) {
+                    robot.get().changeDirection(dirOptional.get());
+                }            
             }));
         }
 

@@ -9,6 +9,7 @@ public enum Direction {
     TOP, RIGHT, BOTTOM, LEFT;
 
     public static Optional<Direction> ofString (String str) {
+        str = str.toUpperCase();
         for (Direction value : values()) {
             if (str.equals(value.name())){
                 return Optional.of(value);
