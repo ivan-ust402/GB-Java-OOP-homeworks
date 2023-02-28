@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+import homework5.RobotMap.Robot;
+
 
 // Реализовать MVP паттерн
 // Меню пользователя:
@@ -79,6 +81,7 @@ public class EntryPoint {
             initListCommandHandler();
             initMoveCommandHandler();
             initChangeDirCommandHandler();
+            initDeleteCommandHandler();
             initExitCommandHandler();
         }
 
@@ -122,6 +125,25 @@ public class EntryPoint {
                 if(dirOptional.isPresent() && robot.isPresent()) {
                     robot.get().changeDirection(dirOptional.get());
                 }            
+            }));
+        }
+
+        private void initDeleteCommandHandler() {
+            handlers.add(createHandler("delete", args -> {
+                Long robotId = Long.parseLong(args[0]);
+                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                robot.ifPresentOrElse(new Consumer<RobotMap.Robot>() {
+
+                    @Override
+                    public void accept(Robot robot) {
+                        map.deleteRobot(robot);
+                        System.out.println();
+                    }
+
+                    }, () -> {
+                        System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                    }
+                );
             }));
         }
 

@@ -121,6 +121,11 @@ public class RobotMap {
         }
     }
 
+    public void deleteRobot(Robot robot) {
+        robots.remove(robot);
+        System.out.println("Робот " + robot.toString() + " удален!");
+    }
+
     /*
      * Вложенный класс Robot
      */
