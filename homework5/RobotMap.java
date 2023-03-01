@@ -121,6 +121,11 @@ public class RobotMap {
         }
     }
 
+    public void deleteRobot(Robot robot) {
+        robots.remove(robot);
+        System.out.println("Робот " + robot.toString() + " удален!");
+    }
+
     /*
      * Вложенный класс Robot
      */
@@ -144,7 +149,12 @@ public class RobotMap {
          * Метод смены направления движения
          */
         public void changeDirection(Direction direction) {
-            this.direction = direction;
+            Direction prevDir = this.direction;
+            this.direction =  direction;
+            System.out.println("Направление робота [" + id + "] " 
+                                + point.toString() + " ["+ prevDir 
+                                + "]"+ " сменилось на " 
+                                + " [" + direction.name() + "]");
         }
 
         /*

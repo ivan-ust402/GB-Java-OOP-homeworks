@@ -7,6 +7,9 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+import homework5.RobotMap.Robot;
+
+
 // Реализовать MVP паттерн
 // Меню пользователя:
 // Список доступных действий:
@@ -44,10 +47,10 @@ public class EntryPoint {
                     2. Для вывода списка всех созданных роботов, введите list 
                     3. Для перемещения робота введите move id x, y, где id -
                     идентификатор робота
-                    4*. hw: Для изменения направления введите changedir id 
+                    4. Для изменения направления введите changedir id 
                     DIRECTION, где id - идентификатор робота, DIRECTION -
                     одно из значений (TOP, RIGHT, BOTTOM, LEFT) 
-                    5*. hw: Для удаления робота введите delete id, где id - 
+                    5. Для удаления робота введите delete id, где id - 
                     идентификатор робота 
                     6. Для выхода напишите exit
                     ...список будет пополняться
@@ -77,6 +80,8 @@ public class EntryPoint {
             initCreateCommandHandler();
             initListCommandHandler();
             initMoveCommandHandler();
+            initChangeDirCommandHandler();
+            initDeleteCommandHandler();
             initExitCommandHandler();
         }
 
@@ -102,6 +107,43 @@ public class EntryPoint {
                 robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
                     System.out.println("Робот с идентификатором " + robotId + " не найден!");
                 });
+            }));
+        }
+
+        private void initChangeDirCommandHandler() {
+            handlers.add(createHandler("changedir", args -> {
+                Long robotId = Long.parseLong(args[0]);
+                String dirInput = args[1];
+                Optional<Direction> dirOptional = Direction.ofString(dirInput);
+                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                if(dirOptional.isEmpty()) {
+                    System.out.println("Направления движения " + dirInput + " не существует!");
+                }
+                if(robot.isEmpty()) {
+                    System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                } 
+                if(dirOptional.isPresent() && robot.isPresent()) {
+                    robot.get().changeDirection(dirOptional.get());
+                }            
+            }));
+        }
+
+        private void initDeleteCommandHandler() {
+            handlers.add(createHandler("delete", args -> {
+                Long robotId = Long.parseLong(args[0]);
+                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                robot.ifPresentOrElse(new Consumer<RobotMap.Robot>() {
+
+                    @Override
+                    public void accept(Robot robot) {
+                        map.deleteRobot(robot);
+                        System.out.println();
+                    }
+
+                    }, () -> {
+                        System.out.println("Робот с идентификатором " + robotId + " не найден!");
+                    }
+                );
             }));
         }
 
