@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import homework6.RobotMap.Robot;
 
 // HW:
 // 1. В проекте RobotMap сделать интерфейс для робота. Везде наружу (в метод #main) отдавать интерфейс. Создание объекта конкретного класса должно быть ровно в одном месте внутри класса RobotMap.
@@ -77,7 +76,7 @@ public class EntryPoint {
             handlers.add(createHandler("create", args -> {
                 int x = Integer.parseInt(args[0]);
                 int y = Integer.parseInt(args[1]);
-                RobotMap.Robot robot = map.createRobot(new Point(x,y));
+                RobotInterface robot = map.createRobot(new Point(x,y));
                 System.out.println("Робот " + robot + " успешно создан!");
             }));
         }
@@ -91,8 +90,8 @@ public class EntryPoint {
         private void initMoveCommandHandler() {
             handlers.add(createHandler("move", args -> {
                 Long robotId = Long.parseLong(args[0]);
-                Optional<RobotMap.Robot> robot = map.getByID(robotId);
-                robot.ifPresentOrElse(RobotMap.Robot::move, () -> {
+                Optional<RobotInterface> robot = map.getByID(robotId);
+                robot.ifPresentOrElse(RobotInterface::move, () -> {
                     System.out.println("Робот с идентификатором " + robotId + " не найден!");
                 });
             }));
@@ -103,7 +102,7 @@ public class EntryPoint {
                 Long robotId = Long.parseLong(args[0]);
                 String dirInput = args[1];
                 Optional<Direction> dirOptional = Direction.ofString(dirInput);
-                Optional<RobotMap.Robot> robot = map.getByID(robotId);
+                Optional<RobotInterface> robot = map.getByID(robotId);
                 if(dirOptional.isEmpty()) {
                     System.out.println("Направления движения " + dirInput + " не существует!");
                 }
@@ -119,11 +118,11 @@ public class EntryPoint {
         private void initDeleteCommandHandler() {
             handlers.add(createHandler("delete", args -> {
                 Long robotId = Long.parseLong(args[0]);
-                Optional<RobotMap.Robot> robot = map.getByID(robotId);
-                robot.ifPresentOrElse(new Consumer<RobotMap.Robot>() {
+                Optional<RobotInterface> robot = map.getByID(robotId);
+                robot.ifPresentOrElse(new Consumer<RobotInterface>() {
 
                     @Override
-                    public void accept(Robot robot) {
+                    public void accept(RobotInterface robot) {
                         map.deleteRobot(robot);
                         System.out.println();
                     }

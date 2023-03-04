@@ -106,7 +106,7 @@ public class RobotMap {
         }
     }
 
-    public Optional<Robot> getByID(Long id) {
+    public Optional<RobotInterface> getByID(Long id) {
         for (Robot robot : robots) {
             if (id.equals(robot.id)) {
                 return Optional.of(robot);
@@ -121,7 +121,7 @@ public class RobotMap {
         }
     }
 
-    public void deleteRobot(Robot robot) {
+    public void deleteRobot(RobotInterface robot) {
         robots.remove(robot);
         System.out.println("Робот " + robot.toString() + " удален!");
     }
