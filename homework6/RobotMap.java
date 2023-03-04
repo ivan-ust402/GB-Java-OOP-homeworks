@@ -129,7 +129,7 @@ public class RobotMap {
     /*
      * Вложенный класс Robot
      */
-    public class Robot {
+    public class Robot implements RobotInterface{
         public static final Direction DEFAUL_DIRECTION = Direction.TOP;
         private Direction direction;
         private Point point;
@@ -148,6 +148,7 @@ public class RobotMap {
         /*
          * Метод смены направления движения
          */
+        @Override
         public void changeDirection(Direction direction) {
             Direction prevDir = this.direction;
             this.direction =  direction;
@@ -160,6 +161,7 @@ public class RobotMap {
         /*
          * Метод движения робота
          */
+        @Override
         public void move() {
             move(1);
         }
@@ -167,6 +169,7 @@ public class RobotMap {
         /*
          * Перегрузка метода движения робота
          */
+        @Override
         public void move(int step) {
             System.out.println("Количество шагов: " + step );
             for (int i = 0; i < step; i++) {
