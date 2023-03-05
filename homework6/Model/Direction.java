@@ -1,4 +1,4 @@
-package homework6;
+package homework6.Model;
 
 import java.util.Optional;
 
